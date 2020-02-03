@@ -17,36 +17,41 @@ float backColorB = 255;
 
 void setup() {
     size(800, 800, P3D);
-    port = new Serial(this, "COM3", 9600);
+    port = new Serial(this, "COM8", 9600);
     port.bufferUntil('\n');
     background(0);
 }
 
 void draw() {
-    background(backColorR,backColorG,backColorB);
-    stroke(255);
+    background(backColorR,backColorG,backColorB);      //Rafraîchir le fond avec nos couleurs rgb stockées dans des variables
+    
     //Si on appuie sur le bouton, changer la couleur du cube
     if (valButt == 1) {  
       xvalueRaw = map(xvalueRaw,260,400,0,255);
       fill(xvalueRaw,xvalueRaw,xvalueRaw);
+      
     } else {
         fill (0,0,0);
     }
-    if ((zvalue - zvalueLast )> treshold) {      //Comparer la valeur actuelle et la valeur précédente, et si un certain écart est dépassé, rentrer dans la boucle
-      backColorR=random(255);
+    if ((zvalue - zvalueLast )> treshold) {      //Comparer la valeur actuelle et la valeur précédente, et si un certain écart est dépassé (si un mouvement assez brusque a eu lieu), rentrer dans la boucle
+      backColorR=random(255);                    //Générer des valeurs aléatoires pour nos couleurs
       backColorG=random(255);
       backColorB=random(255);
-      zvalueLast = zvalue;
+      zvalueLast = zvalue;                      //Mettre à jour la dernière valeur
       println("ARRETER DE ME SECOUER");
+      port.write(5);                        //Envoyer un chiffre sur le port série pour activer le buzzer
+      
     } else {
       zvalueLast = zvalue;
     }
+    stroke(255);
     translate(width/2,height/2,0);
     lights();
     rotateX(-xvalue);
     rotateY(yvalue);
     box(350,350,350);
     delay(20);
+    
 }
 
 void serialEvent(Serial port) {

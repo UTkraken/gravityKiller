@@ -15,6 +15,7 @@ const int pinZ = A0;
 const int butt = 10;
 int valButt;
 
+const int buzz = 11;
 
 void setup() {
   Serial.begin(9600);
@@ -22,6 +23,7 @@ void setup() {
   pinMode(pinY,INPUT);
   pinMode(pinZ,INPUT);
   pinMode(butt,INPUT);
+  pinMode(buzz,OUTPUT);
 }
 
 void loop() {
@@ -29,6 +31,7 @@ void loop() {
   axeX = analogRead(pinX);
   axeY = analogRead(pinY);
   axeZ = analogRead(pinZ);
+  
   //Lissage des valeurs, pour éliminer le bruit blanc
   smoothX = smoothX + ((axeX-smoothX)/3);
   smoothY = smoothY + ((axeY-smoothY)/3);
@@ -41,13 +44,23 @@ void loop() {
   Serial.print(",");
   Serial.print(smoothZ);
   Serial.print(",");
-  //On envoie en fin de message un 0 ou 1 selon si le boutton est pressé
+  //On envoie en fin de message un 0 ou 1 selon si le boutton est pressé. 0 par défaut
   if (digitalRead(butt) == 0) {
     Serial.println(0);
   } else {
-    Serial.println(1);
+      Serial.println(1);
+  }
+
+  //Si on reçoit un message sur le port série
+  if (Serial.available()>0) {
+    if(Serial.read()==5) {
+      digitalWrite(buzz,HIGH);    //Si nombre vaut 5, allumer puis éteindre le buzzer
+    delay(100);
+    digitalWrite(buzz,LOW);
+    }
+    
   }
   //Petit delay pour ne pas faire surchauffer notre petite Arduino
-  delay(100);
-
+  delay(10);
+  
 }
