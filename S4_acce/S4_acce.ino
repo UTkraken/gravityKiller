@@ -1,4 +1,7 @@
- int axeX,axeY,axeZ;
+int axeX,axeY,axeZ;
+ int reposX,reposY,reposZ;
+int deltaX = 67;
+int deltaY = 66;
 const int pinX = A2;
 const int pinY = A1;
 const int pinZ = A0;
@@ -21,6 +24,6 @@ void loop() {
   Serial.print(axeY);
   Serial.print(",");
   Serial.println(axeZ);
-  delay(50);
+  delay(10);
 
 }
