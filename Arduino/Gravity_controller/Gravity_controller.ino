@@ -1,3 +1,9 @@
+/* 
+ *  Yvan Gimard 
+ *  2020
+ */
+
+
 int axeX,axeY,axeZ;
 
 int smoothX =0;
