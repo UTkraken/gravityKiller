@@ -28,6 +28,12 @@ const int butt1 = 5;
 const int butt2 = 6;
 const int butt3 = 7;
 
+
+const int padLeft = 8;
+const int padUp = 9;
+const int padRight = 10;
+const int padDown = 3;
+
 const int buzz = 11;
 
 void setup() {
@@ -38,6 +44,10 @@ void setup() {
   pinMode(butt1,INPUT_PULLUP);
   pinMode(butt2,INPUT_PULLUP);
   pinMode(butt3,INPUT_PULLUP);
+  pinMode(padLeft,INPUT_PULLUP);
+  pinMode(padUp,INPUT_PULLUP);
+  pinMode(padRight,INPUT_PULLUP);
+  pinMode(padDown,INPUT_PULLUP);
   pinMode(buzz,OUTPUT);
 }
 
@@ -56,86 +66,122 @@ void loop() {
  *  POSITION NEUTRE
  *  ------------------------------------------------------------
  */
-  if (smoothX < gauche && smoothX > droite && smoothY > avant && smoothY < arriere){
-    Serial.println("NEUTRE");
-  }
-  
- /* ------------------------------------------------------------
- *  POSITION GAUCHE
- *  ------------------------------------------------------------
- */
-  if (smoothX > gauche){    
-    if ( smoothY < avant) {
-      Serial.println("GAUCHE AVANT");
-    } else if (smoothY > arriere) {
-      Serial.println("GAUCHE ARRIERE");
-    } else {
-      Serial.println("GAUCHE");
-    }
-  }
-  
- /* ------------------------------------------------------------
- *  POSITION DROITE
- *  ------------------------------------------------------------
- */
-  else if (smoothX < droite){    
-    if ( smoothY < avant) {
-      Serial.println("DROITE AVANT");
-    } else if (smoothY > arriere) {
-      Serial.println("DROITE ARRIERE");
-    } else {
-      Serial.println("DROITE");
-    }
-  }
-  
- /* ------------------------------------------------------------
- *  POSITION AVANT
- *  ------------------------------------------------------------
- */
-  else if (smoothY < avant){    
-      Serial.println("AVANT");
-  }
-  
- /* ------------------------------------------------------------
- *  POSITION ARRIERE
- *  ------------------------------------------------------------
- */
-  else if (smoothY > arriere){    
-      Serial.println("ARRIERE");
-  }
-  
+//  if (smoothX < gauche && smoothX > droite && smoothY > avant && smoothY < arriere){
+//    Serial.println("NEUTRE");
+//  }
+//  
+// /* ------------------------------------------------------------
+// *  POSITION GAUCHE
+// *  ------------------------------------------------------------
+// */
+//  if (smoothX > gauche){    
+//    if ( smoothY < avant) {
+//      Serial.println("GAUCHE AVANT");
+//    } else if (smoothY > arriere) {
+//      Serial.println("GAUCHE ARRIERE");
+//    } else {
+//      Serial.println("GAUCHE");
+//    }
+//  }
+//  
+// /* ------------------------------------------------------------
+// *  POSITION DROITE
+// *  ------------------------------------------------------------
+// */
+//  else if (smoothX < droite){    
+//    if ( smoothY < avant) {
+//      Serial.println("DROITE AVANT");
+//    } else if (smoothY > arriere) {
+//      Serial.println("DROITE ARRIERE");
+//    } else {
+//      Serial.println("DROITE");
+//    }
+//  }
+//  
+// /* ------------------------------------------------------------
+// *  POSITION AVANT
+// *  ------------------------------------------------------------
+// */
+//  else if (smoothY < avant){    
+//      Serial.println("AVANT");
+//  }
+//  
+// /* ------------------------------------------------------------
+// *  POSITION ARRIERE
+// *  ------------------------------------------------------------
+// */
+//  else if (smoothY > arriere){    
+//      Serial.println("ARRIERE");
+//  }
+//  
   //Envoi des valeurs sur le port série, séparées par des virgules qui seront prises en compte par processing
-//  Serial.print(smoothX);
-//  Serial.print(",");
-//  Serial.print(smoothY);
-//  Serial.print(",");
-//  Serial.println(smoothZ);
-//  Serial.print(",");
-//  //On envoie ensuite un 0 ou 1 selon si le boutton est pressé. 0 par défaut
+  Serial.print(smoothX);
+  Serial.print(",");
+  Serial.print(smoothY);
+  Serial.print(",");
+  Serial.print(smoothZ);
+  Serial.print(",");
+  
+//  On envoie ensuite un 0 ou 1 selon si le boutton est pressé. 0 par défaut
   if (digitalRead(butt1) == 0) {
-  Serial.println("1 est appuyé");
+   Serial.print(1);
    digitalWrite(buzz,HIGH);    //Si bouton 1 pressé, faire vibrer
    delay(50);
   } else {
-     // Serial.println(1);
+      Serial.print(0);
      digitalWrite(buzz,LOW);  //Sinon, éteindre moteur vibrant
   }
+  Serial.print(",");
    if (digitalRead(butt2) == 0) {
-      Serial.println("2 est appuyé");
-  } 
+     Serial.print(1);
+  } else {
+      Serial.print(0);
+    }
+  Serial.print(",");
    if (digitalRead(butt3) == 0) {
-      Serial.println("3 est appuyé");
-  } 
-
+     Serial.print(1);
+  } else {
+      Serial.print(0);
+    }
+    Serial.print(",");
+//Lecture des boutons du pad directionnel
+    if (digitalRead(padLeft) == 0) {
+     Serial.print(1);
+    } else {
+        Serial.print(0);
+      }
+    
+    Serial.print(",");
+    if (digitalRead(padUp) == 0) {
+       Serial.print(1);
+    } else {
+        Serial.print(0);
+      }
+    
+    Serial.print(",");
+    if (digitalRead(padRight) == 0) {
+     Serial.print(1);
+    } else {
+        Serial.print(0);
+      }
+    
+    Serial.print(",");
+    if (digitalRead(padDown) == 0) {
+     Serial.println(1);
+  } else {
+      Serial.println(0);
+    }
   //Si on reçoit un message sur le port série
   if (Serial.available()>0) {
     if(Serial.read()==5) {
       digitalWrite(buzz,HIGH);    //Si nombre vaut 5, allumer puis éteindre le buzzer
     delay(100);
     digitalWrite(buzz,LOW);
-    }
-    
+    }    
   }
+
+
+  
   //Petit delay pour ne pas faire surchauffer notre petite Arduino
   delay(50);
   
