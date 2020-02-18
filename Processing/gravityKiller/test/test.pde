@@ -4,11 +4,15 @@ float yPers = 300;
 float xBot = 200;
 float yBot = 200;
 
-Hero healer = new Hero(25,25,xPers,yPers,color(255));
+PImage casque;
+
+
+Hero healer = new Hero(25,25,xPers,yPers);
 Zombie regular = new Zombie(25,25,25,25,color(0,255,255));
 
 void setup(){
-  size(600,600);
+  size(1440,1080);
+  casque = loadImage("outfit1.png");
 }
 
 void draw(){
