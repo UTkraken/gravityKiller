@@ -25,7 +25,7 @@ class Zombie {
     translate(xBot,yBot);
     rotate(PI * angleZombie / 180 );
     imageMode(CENTER);
-    image(regularTete,0,0);
+    image(regularTete,0,0,80,80);
     popMatrix();
   }
   
