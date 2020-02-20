@@ -9,6 +9,7 @@ class Hero {
   float angleHero=0;
   
 
+
   
   // constructeur du hero
   Hero(int largParam, int hautParam, float xParam, float yParam) {
