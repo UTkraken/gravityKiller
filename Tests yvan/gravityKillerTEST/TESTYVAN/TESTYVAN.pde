@@ -26,7 +26,7 @@ Hero healer = new Hero(25,25,xPers,yPers,color(255));
 Zombie regular = new Zombie(25,25,25,25,color(0,255,255));
 
 void setup(){
-  size(600,600);
+  size(1440,1080);
   port = new Serial(this, "COM10", 9600);
     port.bufferUntil('\n');
 }
@@ -82,11 +82,11 @@ void serialEvent(Serial port) {
     }
   //Débuguage
     //println(xvalue);
-    print("Valeur X : ");
-    print(xValueRaw);
-    print(" et ");
-    print("Valeur Y : ");
-    println(yValueRaw);
+    //print("Valeur X : ");
+    //print(xValueRaw);
+    //print(" et ");
+    //print("Valeur Y : ");
+    //println(yValueRaw);
 }
 
 float calculate( int returnValue, int baseValue ) {

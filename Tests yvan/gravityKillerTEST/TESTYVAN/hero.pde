@@ -7,7 +7,10 @@ class Hero {
   color couleur;
   float vitesse = 3.;
   float angleHero=0;
-  
+  int xBaseline = 343;
+  int yBaseline = 334;
+  float angleX = 0.;
+  float angleY = 0.;
   
   // constructeur du hero
   Hero(int largParam, int hautParam, float xParam, float yParam, color nouvCouleur) {
@@ -30,10 +33,26 @@ class Hero {
     popMatrix();
   }
   
+  //mapper la position de l'accéléro par rapport à la taille de l'écran, ça permet de simuler une souris qui se balade sur l'écran grâce aux valeurs de l'accéléro
+  
   void orientationHero(){
     //angleHero = 90-atan((xValueRaw - x)/(yValueRaw - y))*180/PI;
     //if(yValueRaw < 350) {
-        angleHero = -atan((xValueRaw - x)/(yValueRaw - y))*180/PI;
+        //angleHero = -atan((xValueRaw - x)/(yValueRaw - y))*180/PI;
+        angleX = map(xValueRaw,380,306,0,1440);
+        angleHero = 90-atan((angleX - x)/(angleY - y))*180/PI;
+        //println(angleX);
+        angleY = map(yValueRaw,365,305,1080,0);
+        if(angleY > y){
+          
+        angleHero = 90-atan((angleX - x)/(angleY - y))*180/PI;
+        println(angleY);
+        } else {
+          angleHero = 270-atan((mouseX - x)/(mouseY - y))*180/PI; 
+        }
+        
+        
+        //println(angleHero);
       //}
 
     //if(mouseY > y){      
