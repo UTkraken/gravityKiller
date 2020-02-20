@@ -5,7 +5,7 @@ class Hero {
   float x;
   float y ;
   color couleur;
-  float vitesse = 6;
+  float vitesse = 3.;
   float angleHero=0;
   
   
@@ -31,13 +31,19 @@ class Hero {
   }
   
   void orientationHero(){
-    if(mouseY < y){
-      angleHero = 90-atan((mouseX - x)/(mouseY - y))*180/PI;
-    //  println(angleHero);
-    }
-    else{
-      angleHero = 270-atan((mouseX - x)/(mouseY - y))*180/PI; 
-      //println(angleHero);
-    }
+    //angleHero = 90-atan((xValueRaw - x)/(yValueRaw - y))*180/PI;
+    //if(yValueRaw < 350) {
+        angleHero = -atan((xValueRaw - x)/(yValueRaw - y))*180/PI;
+      //}
+
+    //if(mouseY > y){      
+    //  //utiliser ces fonctions pour orienter le héro en fonction de la positio du joystick
+    //  angleHero = 90-atan((mouseX - x)/(mouseY - y))*180/PI;
+    ////  println(angleHero);
+    //}
+    //else{
+    //  angleHero = 270-atan((mouseX - x)/(mouseY - y))*180/PI; 
+    //  //println(angleHero);
+    //}
   }
 }

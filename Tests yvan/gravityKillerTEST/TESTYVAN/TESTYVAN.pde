@@ -11,6 +11,7 @@ float yBot = 200;
 float xvalue = 0;
 int xValueRaw = 0;
 float yvalue = 0;
+int yValueRaw = 0;
 float zvalue = 0;
 int valButt = 0;
 int AngleVision=90;
@@ -35,7 +36,7 @@ void draw(){
   
   healer.heroDisplay();
   healer.orientationHero();
-  deplacementAccelero();
+  //deplacementAccelero();
   regular.afficheZombie();
   regular.orientationZombie();
 }
@@ -43,7 +44,7 @@ void draw(){
 void deplacementAccelero() {
   if(xValueRaw > 360) { //Gauche
       println("coucou");
-      healer.vitesse = map(xValueRaw,361,380,1,6);
+      healer.vitesse = map(xValueRaw,361,380,1,3);
        healer.x -= healer.vitesse;
       //TODO : Réduire la vitesse max;
       // Permettre au héro de revenir au point mort
@@ -74,6 +75,7 @@ void serialEvent(Serial port) {
         xvalue = calculate( values[0], 329 );      //On passe la valeur dans une variable qui vient la transformer en radians.
         xValueRaw =  values [0];
         yvalue = -calculate( values[1], 331 );
+        yValueRaw = values[1];
         zvalue = values [2];
         valButt = values[3];
         
@@ -81,7 +83,10 @@ void serialEvent(Serial port) {
   //Débuguage
     //println(xvalue);
     print("Valeur X : ");
-    println(xValueRaw);
+    print(xValueRaw);
+    print(" et ");
+    print("Valeur Y : ");
+    println(yValueRaw);
 }
 
 float calculate( int returnValue, int baseValue ) {
