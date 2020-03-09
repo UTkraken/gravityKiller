@@ -1,7 +1,7 @@
 class Balle {
   float x,y,v;
   
-  Balle(float xParam, float yParam, float vParam ){
+  Balle(float xParam, float yParam, float vParam){
     x = xParam;
     y = yParam;
     v = vParam;
@@ -14,6 +14,8 @@ class Balle {
   }
   
   void balleMove(){
+    x -= v;
     y -= v;
-  }
+    }
+    
 }

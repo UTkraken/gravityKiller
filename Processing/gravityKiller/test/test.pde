@@ -43,12 +43,8 @@ void deplacement(){
     if(keyCode == RIGHT) healer.x += healer.vitesse;
   }
   
-  if (key == ' ' ) {
-    Balle bullet = new Balle(healer.x,healer.y,10);
-    
-    
-    bullet.balleDisplay();
-    bullet.balleMove();
+  if (mousePressed) {
+    healer.shoot();
   }
   
   xBot += cos(PI * regular.angleZombie / 180)*regular.vitesseZombie;

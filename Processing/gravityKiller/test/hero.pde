@@ -40,4 +40,8 @@ class Hero {
       println(angleHero);
     }
   }
+  
+  void shoot() {
+    
+  }
 }
