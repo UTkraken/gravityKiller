@@ -8,8 +8,6 @@ class Hero {
   int vitesse = 3;
   float angleHero=0;
   
-
-
   
   // constructeur du hero
   Hero(int largParam, int hautParam, float xParam, float yParam) {
@@ -41,7 +39,4 @@ class Hero {
     }
   }
   
-  void shoot() {
-    
-  }
 }

@@ -2,21 +2,19 @@ class Zombie {
   // déclaration des paramètres du personnage
   int larg;
   int haut;
-  int x;
-  int y ;
-  color couleur;
+  float x;
+  float y ;
   
   float angleZombie = 0;
   float vitesseZombie = 1.8;
   
   
   // constructeur du zombie
-  Zombie(int largParam, int hautParam, int xParam, int yParam, color nouvCouleur) {
+  Zombie(int largParam, int hautParam, float xParam, float yParam) {
     larg = largParam;
     haut = hautParam;
     x = xParam;
     y = yParam;
-    couleur = nouvCouleur;
   }
   
 

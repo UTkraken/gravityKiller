@@ -1,21 +1,24 @@
 class Balle {
-  float x,y,v;
+  float x,y,v=50;
+  float angleBalle=0;
   
-  Balle(float xParam, float yParam, float vParam){
+  Balle(float xParam, float yParam, float aParam){
     x = xParam;
     y = yParam;
-    v = vParam;
+    angleBalle = aParam;
   }
   
   void balleDisplay(){
     imageMode( CENTER );
-    image(balle, x, y);
+    image(img_balle, x,y);
     imageMode( CORNER ); 
   }
   
   void balleMove(){
-    x -= v;
-    y -= v;
-    }
-    
+      float dx = cos(PI * angleBalle / 180)*v;
+      float dy = sin(PI * angleBalle /180)*v;
+      x=dx+x;
+      y=dy+y;
+  }
+
 }
