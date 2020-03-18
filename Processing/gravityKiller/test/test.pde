@@ -1,8 +1,8 @@
 float xPers = 300;
 float yPers = 300; 
 
-float xBot = int(random( 0, 1140 ));
-float yBot = int(random( 0, 1080 ));
+float xBot;
+float yBot;
 
 float xBalle = 0;
 float yBalle = 0;
@@ -16,6 +16,7 @@ PImage regularTete;
 PImage img_balle;
 
 boolean tir = true;
+boolean toucher = false;
 
 int bullet_time = 0;   
 int currentMillis;
@@ -43,7 +44,8 @@ void setup(){
   bullet = new Balle(healer.x, healer.y, healer.angleHero);  
   bullets = new ArrayList() ;
   enemy = new ArrayList();
-  nb_enemy = int(random( 5, 10 ));
+  //nb_enemy = int(random( 5, 10 ));
+  nb_enemy = 5;
   cpt_Z = nb_enemy;
   lastShot = millis();
 }
@@ -60,7 +62,7 @@ void draw(){
   deplacement();
   //regular.afficheZombie();
   //regular.orientationZombie();
-  spawn(nb_enemy);
+  spawn();
   //println( nb_enemy );
   animation_Tir_Munitions();
   previousMillis = millis();
@@ -111,20 +113,21 @@ void animation_Tir_Munitions() {
     Balle o = (Balle) bullets.get( i );  
     o.balleMove();      //  On lance la méthode move() de Bullet
     o.balleDisplay();   //  On lance la méthode display de Bullet
-
-  }}
+  }
+}
   
 void tab_Enemy(int nb_zombie) {
   for(int i=0; i< nb_zombie ; i++){
     xBot = int(random( 0, 1140 ));
     yBot = int(random( 0, 1080 ));
-    Zombie regular = new Zombie(20,20,xBot,yBot);
+    Zombie regular = new Zombie(15,15,xBot,yBot);
     enemy.add(regular); 
-    println (enemy);
   }
+  println (enemy.size());
 }  
-void spawn( int nb_enemy){ 
-  for( int j = 0; j < nb_enemy; j++){
+
+void spawn(){ 
+  for( int j = 0; j < enemy.size(); j++){
     Zombie z = (Zombie) enemy.get(j);
     z.orientationZombie();
     z.moveZombie();
