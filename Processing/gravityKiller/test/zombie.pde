@@ -6,7 +6,7 @@ class Zombie {
   float y ;
   
   float angleZombie = 0;
-  float vitesseZombie = 1.8;
+  float vitesseZombie = 0.2;
   
   
   // constructeur du zombie
@@ -21,6 +21,7 @@ class Zombie {
   void afficheZombie(){
     pushMatrix();
     translate(xBot,yBot);
+    rotate(radians(90));
     rotate(PI * angleZombie / 180 );
     imageMode(CENTER);
     image(regularTete,0,0,80,80);
@@ -29,10 +30,16 @@ class Zombie {
   
   void orientationZombie(){
     if(yBot < healer.y){
-      regular.angleZombie = 90-atan((xBot - healer.x)/(yBot - healer.y))*180/PI;  
+      angleZombie = 90-atan((xBot - healer.x)/(yBot - healer.y))*180/PI;  
     }
     else{
-      regular.angleZombie = 270-atan((xBot - healer.x)/(yBot - healer.y))*180/PI; 
+      angleZombie = 270-atan((xBot - healer.x)/(yBot - healer.y))*180/PI; 
     }
   }
+  
+  void moveZombie(){ 
+    xBot += cos(PI * angleZombie / 180)*vitesseZombie;
+    yBot += sin(PI * angleZombie /180)*vitesseZombie;
+  }
+  
 }

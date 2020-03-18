@@ -22,6 +22,7 @@ class Hero {
   void heroDisplay(){
     pushMatrix();
     translate(x,y);
+    rotate(radians(90));
     rotate(PI * angleHero / 180 );
     imageMode(CENTER);
     image(casque,0,0);
@@ -31,11 +32,9 @@ class Hero {
   void orientationHero(){
     if(mouseY < y){
       angleHero = 90-atan((mouseX - x)/(mouseY - y))*180/PI;
-      println(angleHero);
     }
     else{
       angleHero = 270-atan((mouseX - x)/(mouseY - y))*180/PI; 
-      println(angleHero);
     }
   }
   
