@@ -15,6 +15,7 @@ PImage casque;
 PImage regularTete;
 PImage img_balle;
 
+
 boolean tir = true;
 boolean toucher = false;
 
@@ -31,7 +32,13 @@ ArrayList <Balle> bullets;
 int score = 0;
 int waveCompt = 0;
 int wave = 1;
-int vie =5;
+int vie = 100;
+int point;
+int record = 0;
+
+boolean gameOver = false;
+boolean game = false;
+boolean home = true;
 
 Hero healer = new Hero(25,25,xPers,yPers);
 Balle bullet;
@@ -53,31 +60,61 @@ void setup(){
 }
 
 void draw(){
-  background(0);
-  fill(255);
-  String comptz="zombie tué: "+ score ;
-  textSize(32);
-  text(comptz,50,50);
-  String cptw = " Wave: "+ wave;
-  text(cptw,1250,50);
-  String cptv = "Vies: " +vie;
-  text(cptv,700,50);
-  healer.heroDisplay();
-  healer.orientationHero();
-  deplacement();
-  animation_Tir_Munitions();
-  previousMillis = millis(); //Capture de l'instant en millisecondes, utilisé dans mousePressed pour empêcher le spam du tir
-    //tir
-  if (mousePressed){
-      if ((previousMillis - currentMillis) > 500) { //Vérifier si le dernier tir est trop récent, pour empêcher le joueur de spammer la touche
-        dessinerTir();
-      }
-  } else if (!mousePressed){
-    firstShot = true; //repasser le booleen à true pour indiquer que la prochaine balle sera la première du clic
+  
+  if(home){
+    
   }
-  collision();
-  if(waveCompt == 0){
-    newWave();
+  
+  if(game){
+    background(0);
+    fill(255);
+    String comptz="zombie tué: "+ score ;
+    textSize(32);
+    text(comptz,50,50);
+    String cptw = " Wave: "+ wave;
+    text(cptw,1250,50);
+    String cptv = "Vies: " +vie+"%";
+    text(cptv,700,50);
+    healer.heroDisplay();
+    healer.orientationHero();
+    deplacement();
+    animation_Tir_Munitions();
+    previousMillis = millis(); //Capture de l'instant en millisecondes, utilisé dans mousePressed pour empêcher le spam du tir
+      //tir
+    if (mousePressed){
+        if ((previousMillis - currentMillis) > 500) { //Vérifier si le dernier tir est trop récent, pour empêcher le joueur de spammer la touche
+          dessinerTir();
+        }
+    } else if (!mousePressed){
+      firstShot = true; //repasser le booleen à true pour indiquer que la prochaine balle sera la première du clic
+    }
+    
+    collision();
+    if(waveCompt == 0){
+      newWave();
+    }
+    perteVie();
+  }
+  
+  if(gameOver){
+    background(0);
+    textSize(200);
+    text("Game Over",200,450);
+    textSize(50);
+    String finalw ="Vous avez atteint la vage " + wave + " en tuant " + score + " zombies";
+    text(finalw,150,520);
+    point = wave*score;
+    if(record < point){
+      String newRecord = "Bravo, vous avec le nouveau record de: "+ point;
+      text(newRecord,250,580);
+      record = point;
+    }
+    else{
+      String scorel = "Vous avez marqué: " + point;
+      text(scorel,250,580);
+      String afficheRecord = "Le record est de: "+ point;
+      text(afficheRecord,250,620);
+    }
   }
 }
 
@@ -149,6 +186,18 @@ void animation_Tir_Munitions() {
           waveCompt--;
        }
     }    
+  }
+}
+
+
+void perteVie(){
+  for ( int i = zombieArray.size () - 1; i >= 0; i-- ) { 
+    if(dist(healer.x,healer.y, zombieArray.get(i).xBot, zombieArray.get(i).yBot)<75){
+        vie--;
+        if( vie == 0){
+          gameOver = true;
+        }
+    }
   }
 }
 
