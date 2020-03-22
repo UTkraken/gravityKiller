@@ -27,8 +27,8 @@ class Zombie {
     imageMode(CENTER);
     image(regularTete,0,0,80,80);
     popMatrix();
-    fill(255);
-    ellipse(xBot,yBot,75,75);
+    //fill(255);
+    //ellipse(xBot,yBot,75,75);
   }
   
   void orientationZombie(){

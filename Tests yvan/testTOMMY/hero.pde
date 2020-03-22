@@ -6,7 +6,7 @@ class Hero {
   float y ;
   float rayon = 12.5;
   
-  int vitesse = 3;
+  int vitesse = 4;
   float angleHero=0;
   
   

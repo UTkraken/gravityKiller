@@ -24,9 +24,14 @@ int previousMillis;
 int lastShot;
 boolean firstShot = true;
 
-Zombie [] zombieArray; //Déclaration du tableau contenant les zombies
-int nombreZombie = 5;
+ArrayList <Zombie> zombieArray; //Déclaration du tableau contenant les zombies
+int nombreZombie = 0;
 ArrayList <Balle> bullets; 
+
+int score = 0;
+int waveCompt = 0;
+int wave = 1;
+int vie =5;
 
 Hero healer = new Hero(25,25,xPers,yPers);
 Balle bullet;
@@ -41,41 +46,33 @@ void setup(){
   bullet = new Balle(healer.x, healer.y, healer.angleHero);  
   bullets = new ArrayList() ;
   lastShot = millis();
-  zombieArray = new Zombie[5];
-    
-    //Instancer les objets en utilisant la classe Zombie (largeur,hauteur, 
-      for (int i=0; i<nombreZombie; i++) {
-        float randomPosX = random(width); //Générer des positions aléatoires, prévoir une distance minimale avec le joueur pour pas qu'ils apparaissent sur lui
-        float randomPosY = random(height); 
-        //println(randomPosX);
-        zombieArray[i] = new Zombie(25,25,randomPosX,randomPosY);
-  }
+  zombieArray = new ArrayList();
+  randomSpawn(nombreZombie);
+  spawn();
+  waveCompt = nombreZombie;
 }
 
 void draw(){
   background(0);
-  
+  fill(255);
+  String comptz="zombie tué: "+ score ;
+  textSize(32);
+  text(comptz,50,50);
+  String cptw = " Wave: "+ wave;
+  text(cptw,1250,50);
+  String cptv = "Vies: " +vie;
+  text(cptv,700,50);
   healer.heroDisplay();
   healer.orientationHero();
   deplacement();
-  //regular.afficheZombie();
-  //regular.orientationZombie();
-    animation_Tir_Munitions();
-  //Orienter les zombies vers le joueur, les déplacer et les afficher  
-  for (int i=0; i<nombreZombie; i++) {
-    
-      zombieArray[i].afficheZombie();
-      zombieArray[i].orientationZombie();
-      if( toucher == true ){
-        
-      } 
-      
-  }
-  
-
-
+  animation_Tir_Munitions();
   previousMillis = millis(); //Capture de l'instant en millisecondes, utilisé dans mousePressed pour empêcher le spam du tir
+  collision();
+  if(waveCompt == 0){
+    newWave();
+  }
 }
+
 
 void deplacement(){
   if(keyPressed == true){
@@ -85,17 +82,11 @@ void deplacement(){
     if(keyCode == RIGHT) healer.x += healer.vitesse;
   }
    //Déplacement des zombies
-    for (int i=0; i<nombreZombie; i++) {
-      zombieArray[i].xBot += cos(PI * zombieArray[i].angleZombie / 180)*zombieArray[i].vitesseZombie;
-      zombieArray[i].yBot += sin(PI * zombieArray[i].angleZombie /180)*zombieArray[i].vitesseZombie;
+    for (int i = zombieArray.size () - 1; i >= 0; i--) {
+      zombieArray.get(i).xBot += cos(PI * zombieArray.get(i).angleZombie / 180)*zombieArray.get(i).vitesseZombie;
+      zombieArray.get(i).yBot += sin(PI * zombieArray.get(i).angleZombie /180)*zombieArray.get(i).vitesseZombie;
   }
-  
-  
-  
-  
-  //xBot += cos(PI * regular.angleZombie / 180)*regular.vitesseZombie;
-  //yBot += sin(PI * regular.angleZombie /180)*regular.vitesseZombie;
-  
+  //tir
   if (mousePressed){
       if ((previousMillis - currentMillis) > 500) { //Vérifier si le dernier tir est trop récent, pour empêcher le joueur de spammer la touche
         dessinerTir();
@@ -134,12 +125,49 @@ void animation_Tir_Munitions() {
     o.balleMove();      //  On lance la méthode move() de Bullet
     o.balleDisplay();   //  On lance la méthode display de Bullet
     
-  
-    for ( int j = 0; j < nombreZombie; j++){
-      if (o.x > zombieArray[j].xBot && o.x < zombieArray[j].xBot + 25 && o.y > zombieArray[j].yBot && o.y < zombieArray[j].yBot+ 25){
-        println("touché");
-        toucher = true;
-      }
-    }
    }
  }
+ 
+ 
+ void collision(){
+   for ( int i = zombieArray.size () - 1; i >= 0; i-- ) { 
+    //  on obtient les munitions du tableau bullets : bullets.get( i )
+    Zombie z = (Zombie) zombieArray.get( i );  
+    z.orientationZombie();      //  On lance la méthode orientation du zombie
+    z.afficheZombie();   //  On lance la méthode display de zombie
+    
+    for (int j = bullets.size () - 1; j >= 0; j--){
+      if (bullets.get(j).x > z.xBot && bullets.get(j).x < z.xBot + 25 && bullets.get(j).y > z.yBot && bullets.get(j).y < z.yBot+ 25){
+        println("touché");
+        bullets.remove(j);
+        zombieArray.remove(i);
+        score++;
+        waveCompt--;
+      }
+    }    
+  }
+}
+
+void spawn(){
+  //Instancer les objets en utilisant la classe Zombie (largeur,hauteur, 
+  for (int i=0; i<nombreZombie; i++) {
+    float randomPosX = random(width); //Générer des positions aléatoires, prévoir une distance minimale avec le joueur pour pas qu'ils apparaissent sur lui
+    float randomPosY = random(height); 
+    //println(randomPosX);
+    Zombie zomb = new Zombie(25,25,randomPosX,randomPosY);
+    zombieArray.add(zomb);
+  }
+}
+
+void randomSpawn(int result){
+  result = int(random(1,5));
+  nombreZombie = result + nombreZombie;
+  println(nombreZombie);
+}
+
+void newWave(){
+    wave++;
+    randomSpawn(nombreZombie);
+    waveCompt =nombreZombie;
+    spawn();
+}
