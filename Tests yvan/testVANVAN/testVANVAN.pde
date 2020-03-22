@@ -16,6 +16,7 @@ PImage regularTete;
 PImage img_balle;
 
 boolean tir = true;
+boolean toucher = false;
 
 int bullet_time = 0;   
 int currentMillis;
@@ -46,7 +47,7 @@ void setup(){
       for (int i=0; i<nombreZombie; i++) {
         float randomPosX = random(width); //Générer des positions aléatoires, prévoir une distance minimale avec le joueur pour pas qu'ils apparaissent sur lui
         float randomPosY = random(height); 
-        println(randomPosX);
+        //println(randomPosX);
         zombieArray[i] = new Zombie(25,25,randomPosX,randomPosY);
   }
 }
@@ -59,16 +60,20 @@ void draw(){
   deplacement();
   //regular.afficheZombie();
   //regular.orientationZombie();
-  
+    animation_Tir_Munitions();
   //Orienter les zombies vers le joueur, les déplacer et les afficher  
   for (int i=0; i<nombreZombie; i++) {
     
       zombieArray[i].afficheZombie();
       zombieArray[i].orientationZombie();
+      if( toucher == true ){
+        
+      } 
+      
   }
   
 
-  animation_Tir_Munitions();
+
   previousMillis = millis(); //Capture de l'instant en millisecondes, utilisé dans mousePressed pour empêcher le spam du tir
 }
 
@@ -128,5 +133,13 @@ void animation_Tir_Munitions() {
     Balle o = (Balle) bullets.get( i );  
     o.balleMove();      //  On lance la méthode move() de Bullet
     o.balleDisplay();   //  On lance la méthode display de Bullet
-
-  }}
+    
+  
+    for ( int j = 0; j < nombreZombie; j++){
+      if (o.x > zombieArray[j].xBot && o.x < zombieArray[j].xBot + 25 && o.y > zombieArray[j].yBot && o.y < zombieArray[j].yBot+ 25){
+        println("touché");
+        toucher = true;
+      }
+    }
+   }
+ }

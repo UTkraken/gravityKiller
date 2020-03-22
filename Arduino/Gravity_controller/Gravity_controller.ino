@@ -30,15 +30,15 @@ const int pinX = A1;
 const int pinY = A2;
 const int pinZ = A3;
 
-const int butt1 = 5;
-const int butt2 = 6;
-const int butt3 = 7;
+const int butt1 = 2;
+const int butt2 = 3;
+const int butt3 = 4;
 
 
-const int padLeft = 8;
-const int padUp = 9;
-const int padRight = 10;
-const int padDown = 3;
+const int padLeft = 6;
+const int padUp = 5;
+const int padRight = 7;
+const int padDown = 8;
 
 const int buzz = 11;
 

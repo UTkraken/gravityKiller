@@ -4,6 +4,7 @@ class Hero {
   int haut;
   float x;
   float y ;
+  float rayon = 12.5;
   
   int vitesse = 3;
   float angleHero=0;
@@ -22,6 +23,7 @@ class Hero {
   void heroDisplay(){
     pushMatrix();
     translate(x,y);
+    rotate(radians(90));
     rotate(PI * angleHero / 180 );
     imageMode(CENTER);
     image(casque,0,0);
