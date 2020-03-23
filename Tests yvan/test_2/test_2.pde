@@ -62,10 +62,22 @@ void setup(){
 void draw(){
   
   if(home){
-    
+    game = false;
+    gameOver = false;
+    background(0);
+    textSize(200);
+    text("Gravity Killer",100,350);
+    rect(450,500,550,100);
+    if(mousePressed && mouseX >450 && mouseX < 1000 && mouseY > 500 && mouseY < 600){
+      home = false;
+      game = true;
+      gameOver =false;
+    }   
   }
   
   if(game){
+    home = false;
+    gameOver = false;
     background(0);
     fill(255);
     String comptz="zombie tué: "+ score ;
@@ -97,6 +109,8 @@ void draw(){
   }
   
   if(gameOver){
+    home = false;
+    game = false;
     background(0);
     textSize(200);
     text("Game Over",200,450);
@@ -104,16 +118,22 @@ void draw(){
     String finalw ="Vous avez atteint la vage " + wave + " en tuant " + score + " zombies";
     text(finalw,150,520);
     point = wave*score;
-    if(record < point){
-      String newRecord = "Bravo, vous avec le nouveau record de: "+ point;
-      text(newRecord,250,580);
-      record = point;
-    }
-    else{
-      String scorel = "Vous avez marqué: " + point;
-      text(scorel,250,580);
-      String afficheRecord = "Le record est de: "+ point;
-      text(afficheRecord,250,620);
+    rect(450,700,550,100);
+    endGame();
+    if(mousePressed && mouseX >450 && mouseX < 1000 && mouseY > 700 && mouseY < 800){
+      home = false;
+      game = true;
+      gameOver = false;
+      vie = 100;
+      score =0;
+      wave = 0;
+      nombreZombie =0;
+      waveCompt = 0;
+      for ( int i = zombieArray.size () - 1; i >= 0; i-- ) {
+        zombieArray.remove(i);
+      }
+      zombieArray.clear();
+      newWave();
     }
   }
 }
@@ -223,4 +243,28 @@ void newWave(){
     randomSpawn(nombreZombie);
     waveCompt =nombreZombie;
     spawn();
+    if( vie < 100 ){
+      vie = vie+20;
+    }
+}
+
+void endGame(){
+  println(record);
+  println(score);
+  if(record < point){
+    String newRecord = "Bravo, vous avec le nouveau record de: "+ point;
+    text(newRecord,250,580);
+    record = point;
+  }
+  else if(record > point){
+    String scorel = "Vous avez marqué: " + point;
+    text(scorel,250,580);
+    String afficheRecord = "Le record est de: "+ point;
+    text(afficheRecord,250,620);
+  }
+    if(record == point){
+    String newRecord = "Bravo, vous avec le nouveau record de: "+ point;
+    text(newRecord,250,580);
+    record = point;
+  }
 }
