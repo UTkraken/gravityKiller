@@ -4,8 +4,8 @@ Serial port;
 float xvalue = 0;
 float yvalue = 0;
 float zvalue = 0;
-float xvalueRaw = 0;
-float yvalueRaw = 0;
+int xvalueRaw = 0;
+int yvalueRaw = 0;
 int valButt = 0;
 int AngleVision=90;
 

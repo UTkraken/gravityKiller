@@ -13,6 +13,11 @@ class Hero {
   float angleX = 0;
   float angleY = 0;
   
+  int gauche = 370;
+  int avant = 340;
+  int droite = 350;
+  int arriere = 365;
+  
   // constructeur du hero
   Hero(int largParam, int hautParam, float xParam, float yParam) {
     larg = largParam;
@@ -34,19 +39,56 @@ class Hero {
   }
   
   void orientationHero(){
-    angleX = map(xvalueRaw,280,400,0,1440);
-    angleY = map(yvalueRaw,300,450,0, 1080);
-    //print(mouseY);
-    //print(',');
-    //println(angleY);
-    if(angleY < y){
-      angleHero = 90-atan((angleX - x)/(angleY - y))*180/PI;
-      println(angleHero);
+    print(xvalueRaw);
+    print(',');
+    println(yvalueRaw);
+    
+ /* ------------------------------------------------------------
+ *  POSITION GAUCHE
+ *  ------------------------------------------------------------
+ */
+  if (xvalueRaw > gauche){    
+    if ( yvalueRaw < avant) {
+      println("GAUCHE AVANT");
+      angleHero = 180;
+    } else if (yvalueRaw > arriere) {
+      println("GAUCHE ARRIERE");
+      angleHero = 145;
+    } else {
+      println("GAUCHE");
     }
-    else{
-      angleHero = 270-atan((angleY - y)/(angleX - x))*180/PI; 
-      println(angleHero);
+  }
+  
+ /* ------------------------------------------------------------
+ *  POSITION DROITE
+ *  ------------------------------------------------------------
+ */
+  else if (xvalueRaw < droite){    
+    if ( yvalueRaw < avant) {
+      println("DROITE AVANT");
+    } else if (yvalueRaw > arriere) {
+      println("DROITE ARRIERE");
+    } else {
+     println("DROITE");
     }
+  }
+  
+ /* ------------------------------------------------------------
+ *  POSITION AVANT
+ *  ------------------------------------------------------------
+ */
+  else if (yvalueRaw < avant){    
+      println("AVANT");
+  }
+  
+ /* ------------------------------------------------------------
+ *  POSITION ARRIERE
+ *  ------------------------------------------------------------
+ */
+  else if (yvalueRaw > arriere){    
+      println("ARRIERE");
+  }
+  
     
     
     
