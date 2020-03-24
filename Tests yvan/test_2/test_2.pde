@@ -142,6 +142,12 @@ void draw(){
     text(cptw,width-200,50);
     String cptv = "Vies: " +vie+"%";
     text(cptv,width/2,50);
+    image(tenteRouge,200,800,250,400);
+    for( int i = 0 ; i < 5; i++ ){
+      float randomPosX = random(width); 
+      float randomPosY = random(height);
+      image(arbre,randomPosX, randomPosY, 150,150);
+    }
     healer.heroDisplay();
     healer.orientationHero();
     deplacement();
