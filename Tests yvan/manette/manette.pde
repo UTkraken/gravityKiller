@@ -8,7 +8,7 @@ int xvalueRaw = 0;
 int yvalueRaw = 0;
 int valButt = 0;
 int AngleVision=90;
-
+int buttLeft, buttUp, buttRight, buttDown;
 
 
 float xPers = 300;
@@ -104,6 +104,17 @@ void deplacement(){
     if(keyCode == LEFT) healer.x -= healer.vitesse;
     if(keyCode == RIGHT) healer.x += healer.vitesse;
   }
+  
+
+    if(buttUp == 1) {
+      healer.y -= healer.vitesse;
+      println("HAUT");
+    }
+    if(buttDown == 1) healer.y += healer.vitesse;
+    if(buttLeft == 1) healer.x -= healer.vitesse;
+    if(buttRight == 1) healer.x += healer.vitesse;
+
+  
    //Déplacement des zombies
     for (int i = zombieArray.size () - 1; i >= 0; i--) {
       zombieArray.get(i).xBot += cos(PI * zombieArray.get(i).angleZombie / 180)*zombieArray.get(i).vitesseZombie;
@@ -202,7 +213,12 @@ void serialEvent(Serial port) {
         yvalue = -calculate( values[1], 331 );
         yvalueRaw = values[1];
         zvalue = values [2];
-        valButt = values[3];
+        valButt = values[3];        
+        buttLeft = values[8];
+        buttUp = values[7];
+        buttRight = values[6];
+        buttDown = values[9];
+        
         
     }
   //Débuguage

@@ -189,6 +189,6 @@ void loop() {
 
   
   //Petit delay pour ne pas faire surchauffer notre petite Arduino
-  delay(50);
+  delay(5);
   
 }
