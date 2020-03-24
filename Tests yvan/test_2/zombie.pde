@@ -25,7 +25,7 @@ class Zombie {
     rotate(radians(90));
     rotate(PI * angleZombie / 180 );
     imageMode(CENTER);
-    image(regularTete,0,0,80,80);
+    image(regularTete,0,0,50,50);
     popMatrix();
     //fill(255);
     //ellipse(xBot,yBot,75,75);
