@@ -46,6 +46,10 @@ boolean buttonOver = false;
 
 PFont neuropol;
 
+PImage tenteBleu;
+PImage tenteRouge;
+PImage arbre;
+
 
 Minim minim;
 AudioPlayer songIntro;
@@ -74,6 +78,9 @@ void setup(){
   gunShot = minim.loadSample("gunshot.mp3");
   zombieDeath = minim.loadSample("zombie_Die.mp3");
   damage = minim.loadSample("damage.mp3");
+  tenteBleu = loadImage("blueTente.png");
+  tenteRouge = loadImage("redTent.png");
+  arbre = loadImage("tree.png");
   bullet = new Balle(healer.x, healer.y, healer.angleHero);  
   bullets = new ArrayList() ;
   lastShot = millis();
