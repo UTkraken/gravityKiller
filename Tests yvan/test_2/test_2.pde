@@ -134,6 +134,14 @@ void draw(){
     songIntro.close();
     songGameOver.close();
     background(31,100,63);
+    image(tenteRouge,200,800,250,400);
+    image(arbre, 1700, 100,100,100);
+    image(arbre, 550, 950,100,100);
+    image(arbre, 100, 150,100,100);
+    image(arbre, 1200, 500,100,100);
+    image(arbre, 850, 750,100,100);
+    image(arbre, 1500, 800,100,100);
+    image(arbre, 950, 250,100,100);
     fill(255);
     String comptz="zombie tué: "+ score ;
     textSize(32);
@@ -142,12 +150,6 @@ void draw(){
     text(cptw,width-200,50);
     String cptv = "Vies: " +vie+"%";
     text(cptv,width/2,50);
-    image(tenteRouge,200,800,250,400);
-    for( int i = 0 ; i < 5; i++ ){
-      float randomPosX = random(width); 
-      float randomPosY = random(height);
-      image(arbre,randomPosX, randomPosY, 150,150);
-    }
     healer.heroDisplay();
     healer.orientationHero();
     deplacement();
