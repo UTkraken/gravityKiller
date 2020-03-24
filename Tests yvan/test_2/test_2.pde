@@ -126,7 +126,7 @@ void draw(){
     songJeu.play();
     songIntro.close();
     songGameOver.close();
-    background(31,137,63);
+    background(31,100,63);
     fill(255);
     String comptz="zombie tué: "+ score ;
     textSize(32);
