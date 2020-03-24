@@ -1,4 +1,4 @@
-import ddf.minim.*;
+  import ddf.minim.*;
 
 float xPers = 300;
 float yPers = 300; 
@@ -42,6 +42,11 @@ boolean gameOver = false;
 boolean game = false;
 boolean home = true;
 
+boolean buttonOver = false;
+
+PFont neuropol;
+
+
 Minim minim;
 AudioPlayer songIntro;
 AudioPlayer songJeu;
@@ -57,7 +62,8 @@ Balle bullet;
 
 
 void setup(){
-  size(1920,1280);
+  size(1920,1080);
+  neuropol = createFont("neuropol.ttf", 32);
   casque = loadImage("outfit1.png");
   img_balle = loadImage("balle.png");
   regularTete = loadImage("regular.png");
@@ -78,16 +84,33 @@ void setup(){
 }
 
 void draw(){
+  textFont(neuropol);
   
   if(home){
     game = false;
     gameOver = false;
     background(0);
+    fill(139,0,0);
     textSize(200);
-    text("Gravity Killer",100,350);
-    rect(450,500,550,100);
+    textAlign(CENTER,CENTER);
+    text("Gravity Killer",width/2,350);
+    noFill();
+    if(buttonOver){
+      fill(255);
+    }
+    stroke(255);
+    rect(650,600,550,100);
+    textSize(75);
+    fill(139,0,0);
+    text("Play",925, 635);
     songIntro.play();
-    if(mousePressed && mouseX >450 && mouseX < 1000 && mouseY > 500 && mouseY < 600){
+    if(mouseX >650 && mouseX < 1200 && mouseY > 550 && mouseY < 650){
+      buttonOver = true;
+    }
+    else{
+      buttonOver = false;
+    }
+    if(mousePressed && mouseX >650 && mouseX < 1200 && mouseY > 550 && mouseY < 650){
       home = false;
       game = true;
       gameOver =false;
@@ -97,18 +120,21 @@ void draw(){
   if(game){
     home = false;
     gameOver = false;
+    gunShot.shiftGain(gunShot.getGain(),-20,10);
+    zombieDeath.shiftGain(zombieDeath.getGain(),-20,10);
+    damage.shiftGain(damage.getGain(),-20,10);
     songJeu.play();
     songIntro.close();
     songGameOver.close();
-    background(0);
+    background(31,137,63);
     fill(255);
     String comptz="zombie tué: "+ score ;
     textSize(32);
-    text(comptz,50,50);
+    text(comptz,200,50);
     String cptw = " Wave: "+ wave;
-    text(cptw,1250,50);
+    text(cptw,width-200,50);
     String cptv = "Vies: " +vie+"%";
-    text(cptv,700,50);
+    text(cptv,width/2,50);
     healer.heroDisplay();
     healer.orientationHero();
     deplacement();
@@ -136,15 +162,31 @@ void draw(){
     game = false;
     songGameOver.play();
     background(0);
+    fill(139,0,0);
     textSize(200);
-    text("Game Over",200,450);
+    text("Game Over",width/2,200);
     textSize(50);
+    fill(255);
     String finalw ="Vous avez atteint la vage " + wave + " en tuant " + score + " zombies";
-    text(finalw,150,520);
+    text(finalw,width/2,450);
     point = wave*score;
-    rect(450,700,550,100);
+    noFill();
+    if(buttonOver){
+      fill(255);
+    }
+    stroke(255);
+    rect(650,750,550,100);
+    textSize(75);
+    fill(139,0,0);
+    text("Try again",925, 785);
     endGame();
-    if(mousePressed && mouseX >450 && mouseX < 1000 && mouseY > 700 && mouseY < 800){
+    if(mouseX >650 && mouseX < 1200 && mouseY > 750 && mouseY < 850){
+      buttonOver = true;
+    }
+    else{
+      buttonOver = false;
+    }
+    if(mousePressed && mouseX > 650 && mouseX < 1200 && mouseY > 700 && mouseY < 800){
       home = false;
       game = true;
       gameOver = false;
@@ -277,20 +319,21 @@ void newWave(){
 void endGame(){
   println(record);
   println(score);
+  fill(255);
   if(record < point){
-    String newRecord = "Bravo, vous avec le nouveau record de: "+ point;
-    text(newRecord,250,580);
+    String newRecord = "Bravo, nouveau record: "+ point;
+    text(newRecord,width/2,580);
     record = point;
   }
   else if(record > point){
     String scorel = "Vous avez marqué: " + point;
-    text(scorel,250,580);
+    text(scorel,width/2,580);
     String afficheRecord = "Le record est de: "+ record;
-    text(afficheRecord,250,620);
+    text(afficheRecord,width/2,660);
   }
     if(record == point){
-    String newRecord = "Bravo, vous avec le nouveau record de: "+ point;
-    text(newRecord,250,580);
+    String newRecord = "Bravo, nouveau record: "+ point;
+    text(newRecord,width/2,580);
     record = point;
   }
 }
