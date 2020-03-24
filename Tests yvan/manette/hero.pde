@@ -32,7 +32,8 @@ class Hero {
     pushMatrix();
     translate(x,y);
     rotate(radians(90));
-    rotate(PI * angleHero / 180 );
+    //rotate(PI * angleHero / 180 );
+    rotate(angleHero);
     imageMode(CENTER);
     image(casque,0,0);
     popMatrix();
@@ -50,12 +51,13 @@ class Hero {
   if (xvalueRaw > gauche){    
     if ( yvalueRaw < avant) {
       println("GAUCHE AVANT");
-      angleHero = 180;
+      angleHero = (5*PI)/4;
     } else if (yvalueRaw > arriere) {
       println("GAUCHE ARRIERE");
-      angleHero = 145;
+      angleHero = (3*PI)/4;
     } else {
       println("GAUCHE");
+      angleHero = PI;
     }
   }
   
@@ -66,10 +68,13 @@ class Hero {
   else if (xvalueRaw < droite){    
     if ( yvalueRaw < avant) {
       println("DROITE AVANT");
+      angleHero = (7*PI)/4;
     } else if (yvalueRaw > arriere) {
       println("DROITE ARRIERE");
+      angleHero = PI/4;
     } else {
      println("DROITE");
+     angleHero = 0;
     }
   }
   
@@ -79,6 +84,7 @@ class Hero {
  */
   else if (yvalueRaw < avant){    
       println("AVANT");
+      angleHero = (3*PI)/2;
   }
   
  /* ------------------------------------------------------------
@@ -87,6 +93,7 @@ class Hero {
  */
   else if (yvalueRaw > arriere){    
       println("ARRIERE");
+      angleHero = PI/2;
   }
   
     
