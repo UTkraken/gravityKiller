@@ -11,7 +11,7 @@ class Balle {
   
   void balleDisplay(){   
    imageMode( CENTER );
-   image(img_balle, x,y,7,7);
+   image(img_balle, x,y,12,12);
    imageMode( CORNER ); 
     //fill(0,0,255);
     //ellipse(x,y,25,25);
