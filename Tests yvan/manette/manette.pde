@@ -8,7 +8,7 @@ int xvalueRaw = 0;
 int yvalueRaw = 0;
 int valButt = 0;
 int AngleVision=90;
-int buttLeft, buttUp, buttRight, buttDown;
+int buttLeft, buttUp, buttRight, buttDown, buttShot;
 
 
 float xPers = 300;
@@ -218,6 +218,7 @@ void serialEvent(Serial port) {
         buttUp = values[7];
         buttRight = values[6];
         buttDown = values[9];
+        buttShot = values[4];
         
         
     }
