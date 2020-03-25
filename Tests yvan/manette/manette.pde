@@ -83,11 +83,11 @@ void draw(){
   animation_Tir_Munitions();
   previousMillis = millis(); //Capture de l'instant en millisecondes, utilisé dans mousePressed pour empêcher le spam du tir
     //tir
-  if (mousePressed){
+  if (buttShot == 1){
       if ((previousMillis - currentMillis) > 500) { //Vérifier si le dernier tir est trop récent, pour empêcher le joueur de spammer la touche
         dessinerTir();
       }
-  } else if (!mousePressed){
+  } else if (buttShot == 0){
     firstShot = true; //repasser le booleen à true pour indiquer que la prochaine balle sera la première du clic
   }
   collision();
@@ -219,7 +219,7 @@ void serialEvent(Serial port) {
         buttRight = values[6];
         buttDown = values[9];
         buttShot = values[4];
-        
+        println(buttShot);
         
     }
   //Débuguage

@@ -17,8 +17,10 @@ class Balle {
   }
   
   void balleMove(){
-      float dx = cos(PI * angleBalle / 180)*v;
-      float dy = sin(PI * angleBalle /180)*v;
+      //float dx = cos(PI * angleBalle / 180)*v;
+      float dx = cos(angleBalle)*v;
+      //float dy = sin(PI * angleBalle /180)*v;
+      float dy = sin(angleBalle)*v;
       x=dx+x;
       y=dy+y;
   }
