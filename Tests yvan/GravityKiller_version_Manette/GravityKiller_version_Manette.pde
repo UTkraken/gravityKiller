@@ -322,13 +322,20 @@ void perteVie(){
 }
 
 void spawn(){
-  //Instancer les objets en utilisant la classe Zombie (largeur,hauteur, 
+  
   for (int i=0; i<nombreZombie; i++) {
-    float randomPosX = random(width); //Générer des positions aléatoires, prévoir une distance minimale avec le joueur pour pas qu'ils apparaissent sur lui
-    float randomPosY = random(height); 
-    //println(randomPosX);
-    Zombie zomb = new Zombie(25,25,randomPosX,randomPosY);
-    zombieArray.add(zomb);
+    float randomPosX;
+    float randomPosY;
+    
+   //Boucle permettant de vérifier que nos zombies n'apparaissent pas directement sur le héro. 
+   //Si leur position est trop proche du perso, on en génère une nouvelle
+    do {
+       randomPosX = random(width); 
+       randomPosY = random(height); 
+    } while (dist(healer.x,healer.y, randomPosX, randomPosY)<125); //commande pour vérifier si les coordonées du zombie se trouvent dans un rayon de x pixels autour du personnage 
+        //Instancer les objets en utilisant la classe Zombie avec nos positions x et y aléatoires
+      Zombie zomb = new Zombie(25,25,randomPosX,randomPosY);
+      zombieArray.add(zomb);      
   }
 }
 
