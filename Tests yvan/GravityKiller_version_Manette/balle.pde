@@ -9,8 +9,9 @@ class Balle {
     angleBalle = aParam;
   }
   
-  void balleDisplay(){   imageMode( CENTER );
-   image(img_balle, x,y);
+  void balleDisplay(){   
+   imageMode( CENTER );
+   image(img_balle, x,y,12,12);
    imageMode( CORNER ); 
     //fill(0,0,255);
     //ellipse(x,y,25,25);

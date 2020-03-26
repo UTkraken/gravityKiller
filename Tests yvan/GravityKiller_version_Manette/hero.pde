@@ -9,14 +9,13 @@ class Hero {
   int vitesse = 4;
   float angleHero=0;
   
-  
-  float angleX = 0;
-  float angleY = 0;
-  
+  //Valeurs limites qui permettent de calibrer l'angle nécessaire pour orienter le personnage.
+  //Si l'une des orientations du personnage n'est pas précise, on peut modifier ces valeurs pour ajuster
   int gauche = 370;
   int avant = 340;
   int droite = 350;
   int arriere = 365;
+  
   
   // constructeur du hero
   Hero(int largParam, int hautParam, float xParam, float yParam) {
@@ -40,7 +39,7 @@ class Hero {
   }
   
   void orientationHero(){
-    print(xvalueRaw);
+        print(xvalueRaw);
     print(',');
     println(yvalueRaw);
     
@@ -95,8 +94,6 @@ class Hero {
       println("ARRIERE");
       angleHero = PI/2;
   }
-  
-    
     
     
     
