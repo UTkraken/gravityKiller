@@ -6,7 +6,7 @@
 
 int axeX,axeY,axeZ;
 
-int smoothX =0;
+int smoothX = 0;
 int smoothY = 0;
 int smoothZ = 0;
 
@@ -21,26 +21,23 @@ int treshold = 360; //Valeur seuil quand on secoue l'arduino de haut en bas
 //int arriere = 330;
 
 //Valeurs pour l'accéléro perso
-int gauche = 370; //Valeur qui, une fois dépassé, indique que le gant est incliné vers la gauche
+int gauche = 370; //Valeur qui, une fois dépassée, indique que le gant est incliné vers la gauche
 int droite = 350;
 int avant = 340;
 int arriere = 365;
 
-const int pinX = A1;
-const int pinY = A2;
-const int pinZ = A3;
-
-const int butt1 = 2;
-const int butt2 = 3;
-const int butt3 = 4;
+const int pinX = A0;
+const int pinY = A1;
+const int pinZ = A2;
 
 
-const int padLeft = 6;
-const int padUp = 5;
-const int padRight = 7;
-const int padDown = 8;
+const int butt1 = 6;
 
-const int buzz = 11;
+
+const int padLeft = 2;
+const int padUp = 3;
+const int padRight = 4;
+const int padDown = 5;
 
 void setup() {
   Serial.begin(9600);
@@ -48,13 +45,10 @@ void setup() {
   pinMode(pinY,INPUT);
   pinMode(pinZ,INPUT);
   pinMode(butt1,INPUT_PULLUP);
-  pinMode(butt2,INPUT_PULLUP);
-  pinMode(butt3,INPUT_PULLUP);
   pinMode(padLeft,INPUT_PULLUP);
   pinMode(padUp,INPUT_PULLUP);
   pinMode(padRight,INPUT_PULLUP);
   pinMode(padDown,INPUT_PULLUP);
-  pinMode(buzz,OUTPUT);
 }
 
 void loop() {
@@ -131,24 +125,10 @@ void loop() {
 //  On envoie ensuite un 0 ou 1 selon si le boutton est pressé. 0 par défaut
   if (digitalRead(butt1) == 0) {
    Serial.print(1);
-   digitalWrite(buzz,HIGH);    //Si bouton 1 pressé, faire vibrer
    delay(50);
   } else {
       Serial.print(0);
-     digitalWrite(buzz,LOW);  //Sinon, éteindre moteur vibrant
   }
-  Serial.print(",");
-   if (digitalRead(butt2) == 0) {
-     Serial.print(1);
-  } else {
-      Serial.print(0);
-    }
-  Serial.print(",");
-   if (digitalRead(butt3) == 0) {
-     Serial.print(1);
-  } else {
-      Serial.print(0);
-    }
     Serial.print(",");
 //Lecture des boutons du pad directionnel
     if (digitalRead(padLeft) == 0) {
@@ -177,14 +157,7 @@ void loop() {
   } else {
       Serial.println(0);
     }
-  //Si on reçoit un message sur le port série
-  if (Serial.available()>0) {
-    if(Serial.read()==5) {
-      digitalWrite(buzz,HIGH);    //Si nombre vaut 5, allumer puis éteindre le buzzer
-    delay(100);
-    digitalWrite(buzz,LOW);
-    }    
-  }
+
 
 
   
